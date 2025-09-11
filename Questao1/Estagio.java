@@ -1,4 +1,4 @@
-package src;
+package Questao1;
 
 
 public class Estagio implements Remuneravel {

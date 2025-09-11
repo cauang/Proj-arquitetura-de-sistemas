@@ -1,4 +1,4 @@
-package src;
+package Questao3;
 
 public class Contrato implements Remuneravel {
     private float salario;
