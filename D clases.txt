@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2025-10-14T00:00:00.000Z" agent="Mozilla/5.0" version="24.7.7" type="device">
+  <diagram id="class-unilink-001" name="Diagrama de Classes — Unilink">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <!-- Classe Usuario -->
+        <mxCell id="cls-usuario" value="Usuario&#xa;&#xa;+ id: UUID&#xa;+ matricula: String&#xa;+ nome: String&#xa;+ curso: String&#xa;+ email: String&#xa;- senhaHash: String&#xa;+ fotoPerfilURL: String&#xa;+ validado: Boolean&#xa;+ dataCriacao: DateTime" style="shape=swimlane;childLayout=stackLayout;rounded=1;horizontal=0;startSize=26;swimlaneFillColor=#ffffff;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="260" height="240" as="geometry"/>
+        </mxCell>
+
+        <!-- Classe Solicitacao -->
+        <mxCell id="cls-solic" value="Solicitacao&#xa;&#xa;+ id: UUID&#xa;+ titulo: String&#xa;+ descricao: String&#xa;+ cursoSolicitante: String&#xa;+ data: Date&#xa;+ hora: String&#xa;+ status: StatusSolicitacao&#xa;+ criadaEm: DateTime" style="shape=swimlane;childLayout=stackLayout;rounded=1;horizontal=0;startSize=26;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="120" width="300" height="260" as="geometry"/>
+        </mxCell>
+
+        <!-- Classe Candidatura -->
+        <mxCell id="cls-cand" value="Candidatura&#xa;&#xa;+ id: UUID&#xa;+ criadaEm: DateTime&#xa;+ status: StatusCandidatura" style="shape=swimlane;childLayout=stackLayout;rounded=1;horizontal=0;startSize=26;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="420" width="240" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Classe Notificacao -->
+        <mxCell id="cls-notif" value="Notificacao&#xa;&#xa;+ id: UUID&#xa;+ tipo: String&#xa;+ mensagem: String&#xa;+ enviadaEm: DateTime&#xa;+ lida: Boolean" style="shape=swimlane;childLayout=stackLayout;rounded=1;horizontal=0;startSize=26;html=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="420" width="260" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Enums como notas -->
+        <mxCell id="enum-status-solic" value="enum StatusSolicitacao {&#xa;  ABERTA;&#xa;  COM_CANDIDATO;&#xa;  CONCLUIDA;&#xa;  CANCELADA;&#xa;}" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="860" y="120" width="260" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="enum-status-cand" value="enum StatusCandidatura {&#xa;  ENVIADA;&#xa;  ACEITA;&#xa;  RECUSADA;&#xa;  CANCELADA;&#xa;}" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="860" y="280" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Relacionamentos -->
+        <!-- Usuario 1 -> * Solicitacao (cria) -->
+        <mxCell id="rel-u-s" value="1      0..*" edge="1" parent="1" source="cls-usuario" target="cls-solic" style="endArrow=block;startArrow=oval;startSize=10;endFill=1;html=1;labelBackgroundColor=#ffffff;"/>
+        <!-- Usuario 1 -> * Candidatura (se candidata) -->
+        <mxCell id="rel-u-c" value="1      0..*" edge="1" parent="1" source="cls-usuario" target="cls-cand" style="endArrow=block;startArrow=oval;startSize=10;endFill=1;html=1;labelBackgroundColor=#ffffff;"/>
+        <!-- Solicitacao 1 -> * Candidatura (recebe) -->
+        <mxCell id="rel-s-c" value="1      0..*" edge="1" parent="1" source="cls-solic" target="cls-cand" style="endArrow=block;startArrow=oval;startSize=10;endFill=1;html=1;labelBackgroundColor=#ffffff;"/>
+        <!-- Usuario 1 -> * Notificacao (recebe) -->
+        <mxCell id="rel-u-n" value="1      0..*" edge="1" parent="1" source="cls-usuario" target="cls-notif" style="endArrow=block;startArrow=oval;startSize=10;endFill=1;html=1;labelBackgroundColor=#ffffff;"/>
+        <!-- Candidatura * -> 0..1 Notificacao (gera) -->
+        <mxCell id="rel-c-n" value="0..*      0..1" edge="1" parent="1" source="cls-cand" target="cls-notif" style="endArrow=block;startArrow=oval;startSize=10;endFill=1;dashed=1;labelBackgroundColor=#ffffff;"/>
+
+        <!-- Notas de RF/RNF -->
+        <mxCell id="note-usuario" value="RF01/RF02: cadastro e login&#xa;RNF Segurança: hash de senha" style="shape=note;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="380" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-solic" value="RF03/RF04: criar/visualizar solicitação" style="shape=note;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-cand" value="RF05/RF07: candidatar e notificar solicitante&#xa;(bloquear duplicidade)" style="shape=note;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="600" width="260" height="90" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
